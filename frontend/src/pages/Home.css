@@ -1,0 +1,110 @@
+/* src/pages/Home.css */
+.home {
+    margin: 0 auto;
+    max-width: 1200px;
+  }
+  
+  /* CSS cho banner */
+.banner-container {
+  width: 100%;
+  margin-bottom: 20px;
+}
+
+.banner-image {
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+}
+
+/* Thùng chứa sản phẩm */
+/* src/pages/Home.css */
+
+/* Thùng chứa sản phẩm */
+.product-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px; /* Khoảng cách giữa các sản phẩm */
+  justify-content: flex-start; /* Dạt sản phẩm sang bên trái khi không đủ 5 sản phẩm */
+}
+
+/* CSS cho thẻ sản phẩm */
+.product-card {
+  width: 23%; /* Tối đa 4 sản phẩm trên mỗi hàng */
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  overflow: hidden;
+  background-color: #fff;
+  position: relative;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease;
+}
+
+.product-card:hover {
+  transform: translateY(-5px); /* Tạo hiệu ứng nâng lên khi hover */
+}
+
+/* CSS cho hình ảnh sản phẩm */
+.product-image-container {
+  position: relative;
+  width: 100%;
+}
+
+.product-image {
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+  transition: transform 0.3s ease;
+}
+
+.product-image-container:hover .product-image {
+  transform: scale(1.05); /* Hiệu ứng phóng to khi hover */
+}
+
+/* Icon giỏ hàng */
+.cart-icon {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background-color: rgba(0, 0, 0, 0.5);
+  padding: 8px;
+  border-radius: 50%;
+  color: white;
+  cursor: pointer;
+  z-index: 10;
+}
+
+.cart-icon i {
+  font-size: 20px;
+}
+
+/* CSS cho tên sản phẩm */
+h3 {
+  font-size: 18px;
+  font-weight: 500;
+  margin: 10px 0;
+}
+
+/* CSS cho giá */
+.product-price {
+  display: flex;
+  gap: 10px;
+  margin-top: 10px;
+  align-items: center;
+}
+
+.original-price {
+  color: red;
+  text-decoration: line-through;
+}
+
+.sale-price {
+  font-weight: bold;
+  color: green;
+}
+
+/* CSS cho mô tả sản phẩm */
+p {
+  font-size: 14px;
+  color: #555;
+  margin-top: 10px;
+}

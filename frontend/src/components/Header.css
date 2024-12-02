@@ -1,0 +1,142 @@
+/* src/components/Header.css */
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+    background-color: #f8f8f8;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  }
+  
+  .logo-container {
+    flex: 1;
+  }
+  
+  .logo-img {
+    width: 50px;
+  }
+  
+  .category-nav {
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+    align-items: center;
+  }
+  .category-link {
+    text-decoration: none;
+    color: #333;
+    font-weight: bold;
+  }
+  
+  
+  .category-link:hover {
+    color: #f0ad4e;
+  }
+  
+  .search-container {
+    flex: 3;
+    text-align: center;
+  }
+  
+  .search-input {
+    width: 80%;
+    padding: 8px 12px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+  }
+  
+  .account-cart-container {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+  }
+  /* Header.css */
+.cart i {
+  font-size: 20px; /* Điều chỉnh kích thước */
+  color: #333; /* Màu sắc */
+  cursor: pointer;
+}
+
+.cart i:hover {
+  color: #007bff; /* Đổi màu khi hover */
+}
+.cart {
+  position: relative;
+}
+
+.cart .cart-count {
+  position: absolute;
+  top: -5px;
+  right: -5px;
+  background-color: red;
+  color: white;
+  font-size: 12px;
+  border-radius: 50%;
+  padding: 5px;
+  width: 20px;
+  height: 20px;
+  text-align: center;
+}
+
+  /* .account, .cart {
+    margin-left: 20px;
+  } */
+  
+  .account a, .cart a {
+    text-decoration: none;
+    font-size: 16px;
+    color: #333;
+    display: flex;
+    align-items: center;
+  }
+  
+  .icon {
+    margin-right: 5px;
+    font-size: 18px;
+  }
+  /* Header.css */
+.account-dropdown {
+  position: relative; /* Đảm bảo dropdown liên kết với parent */
+  display: inline-block;
+}
+
+.account-menu {
+  position: absolute;
+  top: 100%; /* Đặt menu ngay bên dưới username */
+  right: 0; /* Căn sang phải */
+  background-color: #fff;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  width: 200px; /* Đặt kích thước cố định */
+  z-index: 10;
+}
+
+.account-menu-item {
+  display: block;
+  padding: 10px 15px;
+  text-decoration: none;
+  color: #333;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.account-menu-item:hover {
+  background-color: #f0f0f0;
+}
+
+.logout-btn {
+  background: none;
+  border: none;
+  color: #d9534f;
+  cursor: pointer;
+  text-align: left;
+  width: 100%;
+}
+  
+  .account-name {
+    font-weight: bold;
+  }
+  

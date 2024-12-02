@@ -1,0 +1,96 @@
+# Node.js
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+package-lock.json
+.env
+
+# Logs
+logs/
+*.log
+
+# Runtime data
+pids/
+*.pid
+*.seed
+*.pid.lock
+
+# Coverage directory
+coverage/
+
+# Bower dependency directory
+bower_components/
+
+# Grunt intermediate storage
+.grunt/
+
+# Yarn integrity file
+.yarn-integrity
+
+# MacOS files
+.DS_Store
+
+# Visual Studio Code
+.vscode/
+.history/
+
+# .NET
+[Bb]in/
+[Oo]bj/
+*.userprefs
+*.suo
+*.user
+*.cache
+*.mdb
+*.pdb
+*.exe
+*.dll
+*.app
+*.ipa
+*.iobj
+*.ilk
+*.log
+*.tmp
+*.vspscc
+*.vssscc
+
+# Dart and Flutter
+.dart_tool/
+.packages
+build/
+.flutter-plugins
+.flutter-plugins-dependencies
+.pub-cache/
+.pub/
+.idea/
+*.iml
+
+# Generated files
+gen/
+out/
+build/
+
+# Temporary files
+tmp/
+temp/
+
+# IDE files
+*.iml
+*.ipr
+*.iws
+
+# Other files
+*.log
+*.lock
+
+# Environment files
+.env
+.env.local
+.env.*.local
+
+# Logs
+*.log
+
+# Build artifacts
+dist/

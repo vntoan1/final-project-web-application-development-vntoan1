@@ -1,0 +1,83 @@
+/* Giỏ hàng */
+.cart {
+    padding: 20px;
+    background-color: #fff;
+  }
+  
+  .cart-items {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+  
+  .cart-item {
+    display: flex;
+    gap: 20px;
+  }
+  
+  .cart-item img {
+    width: 100px;
+    height: auto;
+    border-radius: 5px;
+    object-fit: cover;
+  }
+  
+  .cart-item h3 {
+    font-size: 18px;
+    font-weight: bold;
+  }
+  
+  .cart-item button {
+    background-color: red;
+    color: white;
+    padding: 5px 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  .cart-item button:hover {
+    background-color: darkred;
+  }
+  
+  .cart-total {
+    margin-top: 20px;
+    font-size: 18px;
+    font-weight: bold;
+  }
+  
+  .cart-total button {
+    background-color: green;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  .cart-total button:hover {
+    background-color: darkgreen;
+  }
+  
+  /* Mã QR */
+  .qr-code {
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .qr-code button {
+    margin-top: 10px;
+    padding: 10px 20px;
+    background-color: #ff3b30;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  .qr-code button:hover {
+    background-color: #ff1a00;
+  }
+  
