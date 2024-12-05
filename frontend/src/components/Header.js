@@ -9,9 +9,10 @@ const Header = ({ user, onLogout, onSearch }) => {
   const [searchQuery, setSearchQuery] = useState('');
   const [categories, setCategories] = useState([]);
   const [showAccountMenu, setShowAccountMenu] = useState(false);
-  const [cartCount, setCartCount] = useState(0); // State để lưu số lượng sản phẩm trong giỏ hàng
+  const [cartCount, setCartCount] = useState(0);
 
   useEffect(() => {
+    // Lấy danh mục từ Firestore
     const fetchCategories = async () => {
       try {
         const querySnapshot = await getDocs(collection(firestore, 'categories'));
@@ -26,13 +27,25 @@ const Header = ({ user, onLogout, onSearch }) => {
     };
 
     fetchCategories();
-    updateCartCount(); // Lấy số lượng giỏ hàng khi trang được tải
+    updateCartCount();
+
+    // Lắng nghe sự kiện thay đổi `localStorage`
+    const handleStorageChange = () => {
+      updateCartCount();
+    };
+
+    window.addEventListener('storage', handleStorageChange);
+
+    return () => {
+      window.removeEventListener('storage', handleStorageChange);
+    };
   }, []);
 
-  // Hàm để cập nhật số lượng giỏ hàng
+  // Hàm tính số lượng sản phẩm trong giỏ hàng
   const updateCartCount = () => {
     const cart = JSON.parse(localStorage.getItem('cart')) || [];
-    setCartCount(cart.length); // Cập nhật số lượng giỏ hàng
+    const count = cart.reduce((total, item) => total + item.quantity, 0);
+    setCartCount(count);
   };
 
   const handleInputChange = (e) => {
@@ -82,10 +95,8 @@ const Header = ({ user, onLogout, onSearch }) => {
       <div className="account-cart-container">
         <div className="cart">
           <Link to="/cart">
-            <i className="fas fa-shopping-cart"></i> {/* Icon giỏ hàng */}
-            {cartCount > 0 && (
-              <span className="cart-count">{cartCount}</span> // Hiển thị số lượng giỏ hàng
-            )}
+            <i className="fas fa-shopping-cart"></i>
+            {cartCount > 0 && <span className="cart-count">{cartCount}</span>}
           </Link>
         </div>
         <div className="account">
@@ -95,7 +106,7 @@ const Header = ({ user, onLogout, onSearch }) => {
               onMouseEnter={() => setShowAccountMenu(true)}
               onMouseLeave={() => setShowAccountMenu(false)}
             >
-              <span className="account-name"> {user.username || 'Người dùng'}</span>
+              <span className="account-name">{user.username || 'Người dùng'}</span>
               {showAccountMenu && (
                 <div className="account-menu">
                   <Link to="/user-profile" className="account-menu-item">

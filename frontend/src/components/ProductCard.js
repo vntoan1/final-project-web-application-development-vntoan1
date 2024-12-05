@@ -1,8 +1,15 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom'; // Đừng quên import Link để điều hướng đến chi tiết sản phẩm
+import { Link, useNavigate } from 'react-router-dom'; // Thêm useNavigate để điều hướng
 
 const ProductCard = ({ product }) => {
   const [imageSrc, setImageSrc] = useState(product.imageUrls?.[0] || 'default-image-url.jpg');
+  const navigate = useNavigate(); // Hook điều hướng
+
+  // Kiểm tra trạng thái đăng nhập
+  const isLoggedIn = () => {
+    const user = JSON.parse(localStorage.getItem('user')); // Giả sử thông tin đăng nhập được lưu trong localStorage
+    return user !== null; // Trả về true nếu người dùng đã đăng nhập
+  };
 
   // Xử lý hover khi di chuột vào hình ảnh
   const handleMouseEnter = () => {
@@ -18,8 +25,22 @@ const ProductCard = ({ product }) => {
   // Thêm sản phẩm vào giỏ hàng
   const handleAddToCart = (e) => {
     e.stopPropagation(); // Ngừng lan truyền sự kiện để tránh chuyển đến trang chi tiết
+    if (!isLoggedIn()) {
+      navigate('/login'); // Chuyển hướng đến trang đăng nhập nếu chưa đăng nhập
+      return;
+    }
+
     const cart = JSON.parse(localStorage.getItem('cart')) || [];
-    cart.push(product);
+    const existingProductIndex = cart.findIndex(
+      (item) => item.id_product === product.id_product && item.sizes === product.sizes
+    );
+
+    if (existingProductIndex !== -1) {
+      cart[existingProductIndex].quantity += 1; // Nếu đã có trong giỏ, tăng số lượng
+    } else {
+      cart.push({ ...product, quantity: 1 }); // Thêm mới vào giỏ
+    }
+
     localStorage.setItem('cart', JSON.stringify(cart)); // Lưu giỏ hàng vào localStorage
     alert('Sản phẩm đã được thêm vào giỏ hàng!');
   };
@@ -46,24 +67,23 @@ const ProductCard = ({ product }) => {
       {/* Tên sản phẩm */}
       <h3>{product.name}</h3>
 
+      {/* Giá sản phẩm */}
       <div className="product-price">
-        {/* Giá gốc */}
-        {product.price && (
-          <span className="original-price" style={{ color: 'red', textDecoration: 'line-through' }}>
-            {product.price} VND
-          </span>
+        {product.sale_price && (
+          <>
+            <span
+              className="original-price"
+              style={{ color: 'red', textDecoration: 'line-through', marginRight: '8px' }}
+            >
+              {product.price.toLocaleString()} VND
+            </span>
+            <span className="sale-price" style={{ color: 'black', fontWeight: 'bold' }}>
+              {product.sale_price.toLocaleString()} VND
+            </span>
+          </>
         )}
-
-        {/* Giá sale */}
-        {product.salePrice && (
-          <span className="sale-price">
-            {product.salePrice} VND
-          </span>
-        )}
-
-        {/* Nếu không có salePrice, chỉ hiển thị giá gốc */}
-        {!product.salePrice && product.price && (
-          <span className="sale-price">{product.price} VND</span>
+        {!product.sale_price && (
+          <span className="original-price">{product.price.toLocaleString()} VND</span>
         )}
       </div>
 

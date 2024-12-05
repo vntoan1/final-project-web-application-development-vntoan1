@@ -149,13 +149,13 @@ const ProductsView = () => {
             type="number"
             placeholder="Giá"
             value={newProduct.price}
-            onChange={(e) => setNewProduct({ ...newProduct, price: e.target.value })}
+            onChange={(e) => setNewProduct({ ...newProduct, price: Number(e.target.value) })}
           />
           <input
             type="number"
             placeholder="Giá giảm"
             value={newProduct.sale_price}
-            onChange={(e) => setNewProduct({ ...newProduct, sale_price: e.target.value })}
+            onChange={(e) => setNewProduct({ ...newProduct, sale_price: Number(e.target.value) })}
           />
           
           {/* Hình ảnh */}
