@@ -1,9 +1,8 @@
 import React, { useState, useEffect } from "react";
-import { QRCodeCanvas } from "qrcode.react";
 import "./Cart.css";
 import { getFirestore, collection, getDocs } from "firebase/firestore";
 
-const Cart = ({ qrValue }) => {
+const Cart = () => {
   const [cart, setCart] = useState([]);
   const [selectedItems, setSelectedItems] = useState([]);
   const [selectedTotal, setSelectedTotal] = useState(0);
@@ -108,11 +107,21 @@ const Cart = ({ qrValue }) => {
               onChange={() => handleSelectItem(product.id_product, product.sizes)}
               checked={selectedItems.includes(`${product.id_product}-${product.sizes}`)}
             />
-            <img src={product.imageUrls} alt={product.name} />
+            <div>
+              {product.imageUrls && product.imageUrls.length > 0 ? (
+                <img 
+                  src={product.imageUrls[0]} // Lấy ảnh đầu tiên trong danh sách
+                  alt={product.name || "Sản phẩm"}  
+                  width="100" 
+                />
+              ) : (
+                <p>Không có hình ảnh</p>
+              )}
+            </div>
             <div>
               <h3>{product.name}</h3>
-              <p>Size: {product.sizes}</p>
             </div>
+            <p>Size: {product.sizes}</p>
             <p className="price">
               {(product.sale_price || product.price).toLocaleString()} VND
             </p>
@@ -136,7 +145,8 @@ const Cart = ({ qrValue }) => {
 
       {selectedItems.length > 0 && (
         <div className="qr-code">
-          <QRCodeCanvas value={qrValue || "Thanh toán qua mã QR"} />
+          <h3>Xin vui lòng chụp lại hóa đơn</h3>
+          <img src="/images/QR.png" alt="QR" className="QR-img" />
         </div>
       )}
     </div>

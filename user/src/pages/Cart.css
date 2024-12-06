@@ -22,13 +22,15 @@
 
 .cart-item {
   display: grid;
-  grid-template-columns: 40px 80px 1fr auto auto auto auto; /* Cột cho checkbox, ảnh, thông tin, giá, số lượng, tổng tiền, xóa */
+  grid-template-columns: 40px 80px 1fr 1fr 1fr 1fr 1fr; /* Cột cho checkbox, ảnh, thông tin, giá, số lượng, tổng tiền, xóa */
   align-items: center;
   background: #fff;
   padding: 10px 15px;
   border-radius: 8px;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
   gap: 10px;
+  display: flex;
+  justify-items: stretch; /* Các phần tử trong mỗi cột sẽ chiếm toàn bộ chiều rộng cột */
 }
 
 .cart-item img {
@@ -43,12 +45,20 @@
   font-size: 14px;
   font-weight: bold;
   margin: 0;
+  overflow: hidden; /* Ẩn phần nội dung tràn */
+  display: -webkit-box; /* Định dạng khung */
+  -webkit-box-orient: vertical; /* Đặt hướng khung dọc */
+  -webkit-line-clamp: 2; /* Giới hạn 2 dòng */
+  line-clamp: 2; /* Đặt số dòng tối đa */
+  max-width: 280px;    /* Đặt giới hạn độ rộng */
+  text-overflow: ellipsis; /* Thêm dấu "..." nếu nội dung tràn */
 }
+
 
 .cart-item p {
   font-size: 12px;
-  color: #555;
   margin: 0;
+  font-weight: bold;
 }
 
 .cart-item .price,
@@ -102,7 +112,7 @@
 }
 
 .qr-code {
-  margin-top: 20px;
+  margin-top: 10px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -112,18 +122,7 @@
   border-radius: 8px;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
 }
-
-.qr-code button {
-  background-color: #ff424f;
-  color: white;
-  padding: 8px 20px;
-  border: none;
-  border-radius: 5px;
-  font-size: 14px;
-  cursor: pointer;
-  transition: background-color 0.3s;
-}
-
-.qr-code button:hover {
-  background-color: #d7232b;
+.QR-img {
+  width:20%;
+  height:auto;
 }
