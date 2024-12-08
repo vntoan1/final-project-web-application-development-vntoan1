@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { doc, setDoc, getDoc } from 'firebase/firestore';  // Đảm bảo có 'getDoc'
+import { doc, getDoc, setDoc } from 'firebase/firestore';  
 import { auth, firestore, createUserWithEmailAndPassword, signInWithEmailAndPassword } from '../firebase';
 import './LoginRegister.css';
 
@@ -8,8 +8,9 @@ const LoginRegister = () => {
   const [isLogin, setIsLogin] = useState(true);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [userName, setUserName] = useState('');  // Thêm state cho tên người dùng
+  const [userName, setUserName] = useState('');  
   const [error, setError] = useState('');
+  const [userData, setUserData] = useState(null);  // State để lưu thông tin người dùng
   const navigate = useNavigate();
 
   const toggleForm = () => {
@@ -21,18 +22,16 @@ const LoginRegister = () => {
     try {
       const userCredential = await signInWithEmailAndPassword(auth, email, password);
       const user = userCredential.user;
-
-      // Truy cập Firestore để lấy thông tin vai trò
+  
+      // Truy cập Firestore để lấy thông tin người dùng
       const docRef = doc(firestore, "users", user.uid);
-      const docSnap = await getDoc(docRef);  // Đảm bảo dùng getDoc
-
+      const docSnap = await getDoc(docRef);
+  
       if (docSnap.exists()) {
-        const role = docSnap.data().role;
-        if (role === 'admin') {
-          navigate('/admin');
-        } else {
-          navigate('/home');
-        }
+        const userData = docSnap.data();
+        setUserData(userData);  // Lưu dữ liệu người dùng vào state
+        console.log('User data: ', userData); // Kiểm tra dữ liệu người dùng
+        navigate('/home');
       } else {
         console.error("Không tìm thấy dữ liệu người dùng!");
       }
@@ -40,26 +39,48 @@ const LoginRegister = () => {
       setError("Thông tin đăng nhập không chính xác!");
       console.error(error);
     }
-  };
+  };    
 
   const handleRegister = async (e) => {
     e.preventDefault();
     try {
       const userCredential = await createUserWithEmailAndPassword(auth, email, password);
       const user = userCredential.user;
-
-      // Tạo document trong Firestore với tên người dùng
+  
+      const countersRef = doc(firestore, "system", "counters");
+  
+      // Lấy và tăng last_customer_id
+      const countersSnap = await getDoc(countersRef);
+      let newCustomerId = 1; // Mặc định nếu chưa có last_customer_id
+  
+      if (countersSnap.exists()) {
+        const data = countersSnap.data();
+        newCustomerId = (data.last_customer_id || 0) + 1;
+      }
+  
+      // Cập nhật last_customer_id trong Firestore
+      await setDoc(countersRef, { last_customer_id: newCustomerId }, { merge: true });
+  
+      // Lưu thông tin người dùng với id_customer ngắn gọn
       await setDoc(doc(firestore, "users", user.uid), {
-        username: userName,  // Lưu tên người dùng từ form đăng ký
+        id_customer: newCustomerId, // ID ngắn gọn
+        username: userName,
         email: user.email,
         role: "user", // Mặc định là user
       });
-
+  
       alert("Đăng ký thành công!");
       navigate('/home');
     } catch (error) {
       setError(error.message);
+      console.error("Lỗi khi đăng ký:", error);
     }
+  };  
+
+  const handleLogout = async () => {
+    await auth.signOut();
+    setUserData(null);  // Đặt lại thông tin người dùng khi đăng xuất
+    navigate('/login');  // Điều hướng về trang đăng nhập
   };
 
   return (
@@ -108,7 +129,7 @@ const LoginRegister = () => {
               type="text"
               placeholder="Tên người dùng"
               value={userName}
-              onChange={(e) => setUserName(e.target.value)} // Lấy giá trị tên người dùng
+              onChange={(e) => setUserName(e.target.value)} 
               required
             />
             <input
@@ -129,6 +150,16 @@ const LoginRegister = () => {
           </form>
         )}
       </div>
+
+      {/* Hiển thị tên người dùng nếu đã đăng nhập */}
+      {userData && (
+        <div className="user-info">
+          <p>{userData.username}</p>
+          <button onClick={() => navigate('/user-profile')}>Thông tin cá nhân</button>
+          <button onClick={() => navigate('/orders')}>Đơn hàng của tôi</button>
+          <button onClick={handleLogout}>Đăng xuất</button>
+        </div>
+      )}
     </div>
   );
 };

@@ -22,7 +22,7 @@
 
 .cart-item {
   display: grid;
-  grid-template-columns: 40px 80px 1fr 1fr 1fr 1fr 1fr; /* Cột cho checkbox, ảnh, thông tin, giá, số lượng, tổng tiền, xóa */
+   /* Cột cho checkbox, ảnh, thông tin, giá, số lượng, tổng tiền, xóa */
   align-items: center;
   background: #fff;
   padding: 10px 15px;
@@ -44,37 +44,41 @@
 .cart-item h3 {
   font-size: 14px;
   font-weight: bold;
-  margin: 0;
+  margin: 10px;
   overflow: hidden; /* Ẩn phần nội dung tràn */
   display: -webkit-box; /* Định dạng khung */
   -webkit-box-orient: vertical; /* Đặt hướng khung dọc */
   -webkit-line-clamp: 2; /* Giới hạn 2 dòng */
   line-clamp: 2; /* Đặt số dòng tối đa */
-  max-width: 280px;    /* Đặt giới hạn độ rộng */
+  width: 250px;    /* Đặt giới hạn độ rộng */
   text-overflow: ellipsis; /* Thêm dấu "..." nếu nội dung tràn */
 }
 
 
 .cart-item p {
   font-size: 12px;
-  margin: 0;
+  margin: 10px;
   font-weight: bold;
+  width: 70px;
 }
 
-.cart-item .price,
+.cart-item .price {
+  width: 100px;
+}
 .cart-item .total-price {
   font-size: 14px;
   font-weight: bold;
   color: #333;
+  width: 100px;
 }
 
 .cart-item button {
-  background-color: #ff424f;
-  color: white;
+  background-color: white;
+  color: black;
   padding: 5px 10px;
   border: none;
-  border-radius: 5px;
-  font-size: 12px;
+  /* border-radius: 5px; */
+  font-size: 18px;
   cursor: pointer;
   transition: background-color 0.3s;
 }

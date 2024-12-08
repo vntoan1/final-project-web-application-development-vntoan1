@@ -9,6 +9,7 @@ const UserProfile = () => {
     email: '',
     phone: '',
     address: '',
+    id_customer: '', // Add the id_customer field here
   });
   const [isEditing, setIsEditing] = useState(false);
   const [loading, setLoading] = useState(true);
@@ -20,7 +21,7 @@ const UserProfile = () => {
         const docRef = doc(firestore, 'users', user.uid);
         const docSnap = await getDoc(docRef);
         if (docSnap.exists()) {
-          setUserData(docSnap.data());
+          setUserData({ ...docSnap.data(), id_customer: user.uid }); // Store user id as id_customer
         } else {
           console.warn("Không tìm thấy dữ liệu người dùng!");
           setUserData({
@@ -28,6 +29,7 @@ const UserProfile = () => {
             email: user.email,
             phone: '',
             address: '',
+            id_customer: user.uid, // Create id_customer if it's a new user
           });
         }
       } else {

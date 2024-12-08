@@ -132,3 +132,8 @@ h2 {
   margin-top: 20px;
   line-height: 1.6;
 }
+
+button.selected {
+  background-color: #007bff;
+  color: white;
+}

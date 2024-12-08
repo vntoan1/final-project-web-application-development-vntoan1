@@ -1,0 +1,73 @@
+/* OrdersView.css */
+
+/* Table styling */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+  }
+  
+  th, td {
+    padding: 12px;
+    text-align: left;
+    border: 1px solid #ddd;
+  }
+  
+  th {
+    background-color: #f4f4f4;
+    font-weight: bold;
+  }
+  
+  /* Button styling */
+  button {
+    padding: 8px 12px;
+    margin: 5px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    cursor: pointer;
+  }
+  
+  button:hover {
+    background-color: #45a049;
+  }
+  
+  button:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+  }
+  
+  /* Styling for the add new order form */
+  .add-new-form {
+    margin-top: 20px;
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    background-color: #f9f9f9;
+  }
+  
+  .add-new-form input {
+    padding: 8px;
+    margin: 10px 0;
+    width: 100%;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+  }
+  
+  .add-new-form button {
+    background-color: #007BFF;
+  }
+  
+  .add-new-form button:hover {
+    background-color: #0056b3;
+  }
+  
+  /* Active class for add new form */
+  .add-new-form.active {
+    display: block;
+  }
+  
+  .add-new-form:not(.active) {
+    display: none;
+  }
+  

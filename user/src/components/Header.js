@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { collection, getDocs } from 'firebase/firestore';
+import { collection, getDocs, query, where } from 'firebase/firestore';
 import { firestore, auth } from '../firebase';
 import { signOut } from 'firebase/auth';
 import './Header.css';
@@ -10,6 +10,7 @@ const Header = ({ user, onLogout, onSearch }) => {
   const [categories, setCategories] = useState([]);
   const [showAccountMenu, setShowAccountMenu] = useState(false);
   const [cartCount, setCartCount] = useState(0);
+  const [orders, setOrders] = useState([]); // State để lưu danh sách đơn hàng của người dùng
 
   useEffect(() => {
     // Lấy danh mục từ Firestore
@@ -26,7 +27,23 @@ const Header = ({ user, onLogout, onSearch }) => {
       }
     };
 
+    // Lấy đơn hàng của người dùng
+    const fetchOrders = async () => {
+      if (user) {
+        try {
+          const ordersRef = collection(firestore, 'orders');
+          const q = query(ordersRef, where('id_customer', '==', user.uid));
+          const querySnapshot = await getDocs(q);
+          const ordersList = querySnapshot.docs.map((doc) => doc.data());
+          setOrders(ordersList);
+        } catch (error) {
+          console.error('Error fetching orders: ', error);
+        }
+      }
+    };
+
     fetchCategories();
+    fetchOrders();
     updateCartCount();
 
     // Lắng nghe sự kiện thay đổi `localStorage`
@@ -39,7 +56,7 @@ const Header = ({ user, onLogout, onSearch }) => {
     return () => {
       window.removeEventListener('storage', handleStorageChange);
     };
-  }, []);
+  }, [user]);
 
   // Hàm tính số lượng sản phẩm trong giỏ hàng
   const updateCartCount = () => {
@@ -111,6 +128,9 @@ const Header = ({ user, onLogout, onSearch }) => {
                 <div className="account-menu">
                   <Link to="/user-profile" className="account-menu-item">
                     Thông tin cá nhân
+                  </Link>
+                  <Link to="/orders" className="account-menu-item">
+                    Đơn hàng của tôi
                   </Link>
                   <button className="account-menu-item logout-btn" onClick={handleLogout}>
                     Đăng xuất

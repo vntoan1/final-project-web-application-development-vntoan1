@@ -4,6 +4,7 @@ import Home from './pages/Home';
 import LoginRegister from './components/LoginRegister';
 import ProductList from './pages/ProductList';
 import Cart from './pages/Cart';
+import Orders from './pages/Orders';
 import Header from './components/Header';
 import UserProfile from './components/UserProfile'; // Import UserProfile
 import { auth, firestore } from './firebase'; // Import Firestore
@@ -41,7 +42,8 @@ const App = () => {
         <Route path="/cart" element={<Cart />} />
         <Route path="/products" element={<ProductList />} />
         <Route path="/product/:id" element={<ProductDetail />} /> {/* Route cho chi tiết sản phẩm */}
-        <Route path="/user-profile" element={<UserProfile user={user} />} />
+        <Route path="/user-profile" element={<UserProfile />} />
+        <Route path="/orders" element={<Orders />} /> 
       </Routes>
     </Router>
   );
