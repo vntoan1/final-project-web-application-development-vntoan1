@@ -1,15 +1,17 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom'; // Import useNavigate instead of useHistory
-import { auth } from '../firebase'; // Import auth from Firebase
+import { useNavigate } from 'react-router-dom';
+import { auth } from '../firebase';
 import CategoriesView from '../components/CategoriesView';
 import ProductsView from '../components/ProductsView';
 import CustomersView from '../components/CustomersView';
 import OrdersView from '../components/OrdersView';
+import BannersView from '../components/BannersView'; // Import BannersView
 import './AdminDashboard.css';
+import logo from '../images/logo.png';
 
 const AdminDashboard = () => {
   const [activeView, setActiveView] = useState('categories');
-  const navigate = useNavigate();  // Initialize useNavigate hook
+  const navigate = useNavigate();
 
   const renderView = () => {
     switch (activeView) {
@@ -21,6 +23,8 @@ const AdminDashboard = () => {
         return <CustomersView />;
       case 'orders':
         return <OrdersView />;
+      case 'banners': // Case for banners
+        return <BannersView />;
       default:
         return <h2>Chọn mục để quản lý</h2>;
     }
@@ -29,8 +33,7 @@ const AdminDashboard = () => {
   const handleLogout = () => {
     auth.signOut()
       .then(() => {
-        // Sau khi đăng xuất, chuyển hướng về trang login
-        navigate('/login'); // Use navigate to redirect
+        navigate('/login');
       })
       .catch((error) => {
         console.error('Error signing out: ', error);
@@ -41,7 +44,7 @@ const AdminDashboard = () => {
     <div className="admin-dashboard">
       <header className="header">
         <div className="logo">
-          <img src="logo.png" alt="Logo" className="logo-img" />
+          <img src={logo} alt="Logo" className="logo-img" />
         </div>
         <div className="title">
           <h1>Chào mừng đến trang quản trị</h1>
@@ -67,6 +70,9 @@ const AdminDashboard = () => {
             </li>
             <li onClick={() => setActiveView('orders')} className={activeView === 'orders' ? 'active' : ''}>
               Quản lý đơn hàng
+            </li>
+            <li onClick={() => setActiveView('banners')} className={activeView === 'banners' ? 'active' : ''}>
+              Quản lý banner
             </li>
           </ul>
         </nav>

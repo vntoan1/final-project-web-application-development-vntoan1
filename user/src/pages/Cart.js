@@ -198,6 +198,13 @@ const Cart = () => {
         <h3>Tổng cộng (chọn): {selectedTotal.toLocaleString()} VND</h3>
         {selectedItems.length > 0 && <button onClick={handleCheckout}>Thanh toán</button>}
       </div>
+
+      {selectedItems.length > 0 && (
+        <div className="qr-code">
+          <h3>Xin vui lòng chụp lại hóa đơn</h3>
+          <img src="/images/QR.png" alt="QR" className="QR-img" />
+        </div>
+      )}
     </div>
   );
 };

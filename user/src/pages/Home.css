@@ -5,16 +5,36 @@
   }
   
   /* CSS cho banner */
-.banner-container {
-  width: 100%;
-  margin-bottom: 20px;
-}
-
-.banner-image {
-  width: 100%;
-  height: auto;
-  object-fit: cover;
-}
+  .banner-container {
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px 0;
+  }
+  
+  .banner-slide {
+    position: relative;
+    text-align: center;
+  }
+  
+  .banner-image {
+    width: 100%;
+    height: auto;
+    border-radius: 10px;
+    transition: transform 0.3s ease-in-out;
+  }
+  
+  .banner-slide:hover .banner-image {
+    transform: scale(1.05);
+    cursor: pointer;
+  }
+  
+  .banner-description {
+    margin-top: 10px;
+    font-size: 16px;
+    font-weight: 500;
+    color: #333;
+  }  
 
 /* Thùng chứa sản phẩm */
 /* src/pages/Home.css */

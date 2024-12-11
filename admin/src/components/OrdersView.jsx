@@ -40,7 +40,7 @@ const OrdersView = () => {
     } catch (error) {
       console.error('Error updating order: ', error);
     }
-  };
+  };  
 
   return (
     <div>
@@ -62,7 +62,7 @@ const OrdersView = () => {
         <tbody>
           {orders.map((order) => (
             <tr key={order.id}>
-              <td>{order.id_order}</td> {/* Hiển thị ID rút gọn */}
+              <td>{order.id_order}</td>
               <td>{order.id_customer}</td>
               <td>{order.name}</td>
               <td>{order.quantity}</td>
@@ -73,11 +73,11 @@ const OrdersView = () => {
               <td>{new Date(order.createdAt.seconds * 1000).toLocaleString()}</td>
               <td>
                 <button onClick={() => handleUpdateOrder(order.id, { status: 'Đã xác nhận' })}>
-                  Sửa
+                  Xác nhận
                 </button>
                 <button onClick={() => handleDeleteOrder(order.id)}>Xóa</button>
               </td>
-            </tr>
+            </tr>          
           ))}
         </tbody>
 

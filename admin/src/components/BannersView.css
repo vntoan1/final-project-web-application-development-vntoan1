@@ -1,0 +1,149 @@
+.banners-view {
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+  }
+  
+  .main-container {
+    display: flex;
+    flex-direction: column;  /* Giữ form và danh sách banner theo chiều dọc */
+    gap: 20px;  /* Khoảng cách giữa các phần tử */
+  }
+  
+  .form-and-list-container {
+    display: flex;
+    flex-direction: row;  /* Hiển thị form và danh sách banner theo chiều ngang */
+    gap: 20px;
+    width: 100%;
+  }
+  
+  .banner-form {
+    flex-grow: 1;  /* Đảm bảo form chiếm không gian còn lại */
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    background-color: white;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    height: 100%;  /* Đảm bảo form có chiều cao đầy đủ */
+    max-width: 1115px;  /* Giới hạn chiều rộng tối đa cho form */
+  }
+  
+  .banner-list-container {
+    flex-grow: 1;  /* Đảm bảo danh sách banner chiếm không gian còn lại */
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    background-color: white;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    overflow-y: auto;
+    height: 100%;  /* Đảm bảo danh sách có chiều cao đầy đủ */
+  }
+  
+  .banner-list {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+  }
+  
+  .banner-item {
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    background-color: white;
+    display: flex;
+    gap: 10px;
+    align-items: center;
+  }
+  
+  .banner-image {
+    width: auto;  /* Hình ảnh banner có chiều rộng tự động */
+    height: 100px;
+    object-fit: cover;
+    border-radius: 4px;
+  }
+  
+  .banner-info {
+    flex-grow: 1;
+  }
+  
+  .banner-actions {
+    display: flex;
+    gap: 10px;
+  }
+  
+  .btn-submit,
+  .btn-cancel,
+  .btn-edit,
+  .btn-delete {
+    padding: 8px 12px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  
+  .btn-submit {
+    background-color: #28a745;
+    color: white;
+  }
+  
+  .btn-cancel {
+    background-color: #6c757d;
+    color: white;
+    margin-left: 10px;
+  }
+  
+  .btn-edit {
+    background-color: #007bff;
+    color: white;
+  }
+  
+  .btn-delete {
+    background-color: #dc3545;
+    color: white;
+  }
+  
+  /* Thêm style cho các input trong form */
+  .form-group {
+    margin-bottom: 20px;  /* Khoảng cách giữa các trường input */
+  }
+  
+  .form-group label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+  }
+  
+  .form-group input {
+    width: 100%;  /* Đảm bảo input chiếm toàn bộ chiều rộng của form */
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 16px;
+    box-sizing: border-box;
+  }
+  
+  .form-group input:focus {
+    border-color: #007bff;
+    outline: none;
+  }
+  
+  /* Các button trong form */
+  button {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s ease;
+  }
+  
+  button:hover {
+    opacity: 0.9;
+  }
+  
+  .error {
+    color: red;
+    font-size: 14px;
+    margin-bottom: 10px;
+  }
+  
