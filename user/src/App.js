@@ -6,7 +6,7 @@ import ProductList from './pages/ProductList';
 import Cart from './pages/Cart';
 import Orders from './pages/Orders';
 import Header from './components/Header';
-import UserProfile from './components/UserProfile'; // Import UserProfile
+import UserProfile from './pages/UserProfile'; // Import UserProfile
 import { auth, firestore } from './firebase'; // Import Firestore
 import ProductDetail from './pages/ProductDetail'; // Import trang chi tiết sản phẩm
 import { doc, getDoc } from 'firebase/firestore';
