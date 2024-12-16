@@ -10,36 +10,36 @@ const LoginRegister = () => {
   const [password, setPassword] = useState('');
   const [userName, setUserName] = useState('');  
   const [error, setError] = useState('');
-  const [userData, setUserData] = useState(null);  // State để lưu thông tin người dùng
+  const [userData, setUserData] = useState(null);  // State to store user data
   const navigate = useNavigate();
 
-  const toggleForm = () => {
-    setIsLogin(!isLogin);
-  };
+  // const toggleForm = () => {
+  //   setIsLogin(!isLogin);
+  // };
 
   const handleLogin = async (e) => {
     e.preventDefault();
     try {
+      // Xử lý đăng nhập, không cần username
       const userCredential = await signInWithEmailAndPassword(auth, email, password);
       const user = userCredential.user;
   
-      // Truy cập Firestore để lấy thông tin người dùng
+      // Fetch Firestore user data nếu cần
       const docRef = doc(firestore, "users", user.uid);
       const docSnap = await getDoc(docRef);
   
       if (docSnap.exists()) {
         const userData = docSnap.data();
-        setUserData(userData);  // Lưu dữ liệu người dùng vào state
-        console.log('User data: ', userData); // Kiểm tra dữ liệu người dùng
-        navigate('/home');
+        setUserData(userData); // Chỉ cần set userData sau khi fetch Firestore thành công
+        navigate('/home'); // Chuyển hướng đúng cách
       } else {
-        console.error("Không tìm thấy dữ liệu người dùng!");
+        setError("User data not found.");
       }
     } catch (error) {
-      setError("Thông tin đăng nhập không chính xác!");
-      console.error(error);
+      console.error('Login error:', error); // Log lỗi chi tiết hơn
+      setError("Invalid login credentials!");
     }
-  };    
+  };  
 
   const handleRegister = async (e) => {
     e.preventDefault();
@@ -48,116 +48,82 @@ const LoginRegister = () => {
       const user = userCredential.user;
   
       const countersRef = doc(firestore, "system", "counters");
-  
-      // Lấy và tăng last_customer_id
       const countersSnap = await getDoc(countersRef);
-      let newCustomerId = 1; // Mặc định nếu chưa có last_customer_id
+      let newCustomerId = 1;
   
       if (countersSnap.exists()) {
         const data = countersSnap.data();
         newCustomerId = (data.last_customer_id || 0) + 1;
       }
   
-      // Cập nhật last_customer_id trong Firestore
       await setDoc(countersRef, { last_customer_id: newCustomerId }, { merge: true });
   
-      // Lưu thông tin người dùng với id_customer ngắn gọn
       await setDoc(doc(firestore, "users", user.uid), {
-        id_customer: newCustomerId, // ID ngắn gọn
+        id_customer: newCustomerId,
         username: userName,
         email: user.email,
-        role: "user", // Mặc định là user
+        role: "user",
       });
   
-      alert("Đăng ký thành công!");
+      alert("Registration successful!");
+      console.log('Redirecting to /home'); // Debugging log
       navigate('/home');
     } catch (error) {
-      setError(error.message);
-      console.error("Lỗi khi đăng ký:", error);
+      console.error('Registration error:', error); // Log detailed error
+      if (error.code === 'auth/email-already-in-use') {
+        setError("Email is already in use");
+      } else {
+        setError("Error during registration: " + error.message);
+      }
     }
-  };  
-
+  };
+  
   const handleLogout = async () => {
     await auth.signOut();
-    setUserData(null);  // Đặt lại thông tin người dùng khi đăng xuất
-    navigate('/login');  // Điều hướng về trang đăng nhập
+    setUserData(null);
+    navigate('/home');
   };
 
   return (
     <div className="login-register-container">
       <div className="form-toggle">
-        <button
-          className={isLogin ? 'active' : ''}
-          onClick={toggleForm}
-        >
-          Đăng Nhập
-        </button>
-        <button
-          className={!isLogin ? 'active' : ''}
-          onClick={toggleForm}
-        >
-          Đăng Ký
-        </button>
+        <button 
+          data-cy="toggle-login"
+          className={isLogin ? 'active' : ''} 
+          onClick={() => setIsLogin(true)}>Login</button>
+        <button 
+          data-cy="toggle-register"
+          className={!isLogin ? 'active' : ''} 
+          onClick={() => setIsLogin(false)}>Register</button>
       </div>
 
       <div className="form-container">
         {isLogin ? (
           <form className="login-form" onSubmit={handleLogin}>
-            <h2>Đăng Nhập</h2>
+            <h2>Login</h2>
             {error && <div className="error">{error}</div>}
-            <input
-              type="email"
-              placeholder="Email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              required
-            />
-            <input
-              type="password"
-              placeholder="Mật khẩu"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              required
-            />
-            <button type="submit">Đăng Nhập</button>
+            <input type="email" name="email" placeholder="Email" value={email} onChange={(e) => setEmail(e.target.value)} required />
+            <input type="password" name="password" placeholder="Password" value={password} onChange={(e) => setPassword(e.target.value)} required />
+            <button type="submit">Login</button>
           </form>
         ) : (
           <form className="register-form" onSubmit={handleRegister}>
-            <h2>Đăng Ký</h2>
+            <h2>Register</h2>
             {error && <div className="error">{error}</div>}
-            <input
-              type="text"
-              placeholder="Tên người dùng"
-              value={userName}
-              onChange={(e) => setUserName(e.target.value)} 
-              required
-            />
-            <input
-              type="email"
-              placeholder="Email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              required
-            />
-            <input
-              type="password"
-              placeholder="Mật khẩu"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              required
-            />
-            <button type="submit">Đăng Ký</button>
+            <input type="text" name="username" placeholder="Username" value={userName} onChange={(e) => setUserName(e.target.value)} required />
+            <input type="email" name="email" placeholder="Email" value={email} onChange={(e) => setEmail(e.target.value)} required />
+            <input type="password" name="password" placeholder="Password" value={password} onChange={(e) => setPassword(e.target.value)} required />
+            <button type="submit">Register</button>
           </form>
         )}
       </div>
 
-      {/* Hiển thị tên người dùng nếu đã đăng nhập */}
       {userData && (
         <div className="user-info">
           <p>{userData.username}</p>
-          <button onClick={() => navigate('/user-profile')}>Thông tin cá nhân</button>
-          <button onClick={() => navigate('/orders')}>Đơn hàng của tôi</button>
-          <button onClick={handleLogout}>Đăng xuất</button>
+          <button onClick={() => navigate('/user-profile')}>Profile</button>
+          <button onClick={() => navigate('/orders')}>My Orders</button>
+          <button onClick={handleLogout}>Logout</button>
         </div>
       )}
     </div>
