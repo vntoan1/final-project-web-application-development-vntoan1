@@ -13,7 +13,7 @@ const AdminLogin = () => {
 
     // Kiểm tra thông tin đăng nhập với email và mật khẩu cố định
     if (email === 'admin@gmail.com' && password === 'admin123') {
-      navigate('/admin'); // Chuyển hướng đến trang AdminDashboard
+      navigate('/'); // Chuyển hướng đến trang AdminDashboard
     } else {
       setError('Thông tin đăng nhập không chính xác!');
     }

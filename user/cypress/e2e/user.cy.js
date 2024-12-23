@@ -20,8 +20,8 @@ describe('Authentication and Shopping Flow', () => {
     it('should allow a user to log in successfully', () => {
       cy.visit(`${baseUrl}/account`);
       cy.get('[data-cy="toggle-login"]').click();
-      cy.get('input[name="email"]').type('testuser@example.com');
-      cy.get('input[name="password"]').type('password123');
+      cy.get('input[name="email"]').type('to@gmail.com');
+      cy.get('input[name="password"]').type('123456');
       cy.get('button[type="submit"]').click();
       cy.url({ timeout: 40000 }).should('include', '/home');
     });
@@ -67,11 +67,14 @@ describe('Authentication and Shopping Flow', () => {
     it('should allow a logged-in user to access profile and orders', () => {
       cy.visit(`${baseUrl}/account`);
       cy.get('[data-cy="toggle-login"]').click();
-      cy.get('input[name="email"]').type('testuser@example.com');
-      cy.get('input[name="password"]').type('password123');
+      cy.get('input[name="email"]').type('to@gmail.com');
+      cy.get('input[name="password"]').type('123456');
       cy.get('button[type="submit"]').click();
       cy.url({ timeout: 30000 }).should('include', '/home');
-      cy.get('.account-name').contains('existinguser').should('be.visible').click();
+    
+      // Wait for the account name element to be visible and contain the username
+      cy.get('.account-name', { timeout: 30000 }).should('contain.text', 'toan').should('be.visible').click();
+      
       cy.get('a').contains('Thông tin cá nhân').should('be.visible').click({ force: true });
       cy.url().should('include', '/user-profile');
       cy.get('button').contains('Chỉnh sửa').click();
@@ -81,19 +84,19 @@ describe('Authentication and Shopping Flow', () => {
       cy.on('window:alert', (text) => {
         expect(text).to.contains('Cập nhật thông tin thành công!');
       });
-      cy.get('.account-name').contains('existinguser').should('be.visible').click();
+      cy.get('.account-name').contains('toan').should('be.visible').click();
       cy.get('a').contains('Đơn hàng của tôi').should('be.visible').click({ force: true });
       cy.url().should('include', '/orders');
-    });
+    });    
 
     it('should allow a logged-in user to log out successfully', () => {
       cy.visit(`${baseUrl}/account`);
       cy.get('[data-cy="toggle-login"]').click();
-      cy.get('input[name="email"]').type('testuser@example.com');
-      cy.get('input[name="password"]').type('password123');
+      cy.get('input[name="email"]').type('to@gmail.com');
+      cy.get('input[name="password"]').type('123456');
       cy.get('button[type="submit"]').click();
       cy.url({ timeout: 30000 }).should('include', '/home');
-      cy.get('.account-name').contains('existinguser').should('be.visible').click();
+      cy.get('.account-name').contains('toan').should('be.visible').click();
       cy.get('.account-menu').should('be.visible');
       cy.get('.account-menu .logout-btn').click();
       cy.url().should('include', '/home');
@@ -183,8 +186,8 @@ describe('Authentication and Shopping Flow', () => {
     it('should allow a logged-in user to create an order', () => {
       cy.visit('/account');
       cy.get('[data-cy="toggle-login"]').click();
-      cy.get('input[name="email"]').type('testuser@example.com');
-      cy.get('input[name="password"]').type('password123');
+      cy.get('input[name="email"]').type('to@gmail.com');
+      cy.get('input[name="password"]').type('123456');
       cy.get('button[type="submit"]').click();
       cy.url().should('not.include', '/account');
       cy.visit('/product/xqbymziypF0oDiuOzd68');

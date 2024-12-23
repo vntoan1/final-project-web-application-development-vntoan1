@@ -201,7 +201,7 @@ const Cart = () => {
 
       {selectedItems.length > 0 && (
         <div className="qr-code">
-          <h3>Xin vui lòng chụp lại hóa đơn</h3>
+          <h3>Xin vui lòng lưu lại hóa đơn</h3>
           <img src="/images/QR.png" alt="QR" className="QR-img" />
         </div>
       )}

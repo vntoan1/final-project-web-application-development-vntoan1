@@ -89,18 +89,22 @@ const CategoriesView = () => {
             placeholder="ID danh mục"
             value={newCategory.id_cata}
             onChange={(e) => setNewCategory({ ...newCategory, id_cata: e.target.value })}
+            id="category-id"
           />
           <input
             type="text"
             placeholder="Tên danh mục"
             value={newCategory.name}
             onChange={(e) => setNewCategory({ ...newCategory, name: e.target.value })}
+            id="category-name"
           />
+
           <input
             type="text"
             placeholder="Mô tả"
             value={newCategory.description}
             onChange={(e) => setNewCategory({ ...newCategory, description: e.target.value })}
+            id="category-description"
             className="category-description"
           />
           <button onClick={handleAddCategory}>Lưu</button>

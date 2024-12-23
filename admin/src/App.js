@@ -8,7 +8,7 @@ const App = () => {
     <Router>
       <Routes>
         <Route path="/login" element={<AdminLogin />} /> {/* Trang đăng nhập Admin */}
-        <Route path="/admin" element={<AdminDashboard />} /> {/* Trang quản trị Admin */}
+        <Route path="/" element={<AdminDashboard />} /> {/* Trang quản trị Admin */}
       </Routes>
     </Router>
   );
