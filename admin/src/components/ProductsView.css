@@ -1,0 +1,101 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  
+  button {
+    margin: 5px;
+    padding: 8px 12px;
+    border: none;
+    background-color: #4caf50;
+    color: white;
+    cursor: pointer;
+    border-radius: 4px;
+  }
+  
+  button:hover {
+    background-color: #45a049;
+  }
+  
+  .add-new-form {
+    background-color: #f9f9f9;
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    max-width: 600px;
+    margin: 20px auto;
+  }
+  
+  .add-new-form h3 {
+    margin-top: 0;
+  }
+  
+  .add-new-form input,
+  .add-new-form textarea {
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+  }
+  
+  .add-new-form button {
+    margin-top: 10px;
+  }
+  
+  .add-new-form div {
+    margin-bottom: 10px;
+  }
+  
+  .add-new-form img {
+    margin-right: 5px;
+    border-radius: 4px;
+  }
+  
+  .add-new-form .image-input {
+    display: flex;
+    align-items: center;
+  }
+  
+  .add-new-form .image-input button {
+    margin-left: 10px;
+  }
+  
+  .add-new-form .size-input {
+    display: flex;
+    align-items: center;
+  }
+  
+  .add-new-form .size-input button {
+    margin-left: 10px;
+  }
+  
+  table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  
+  table th,
+  table td {
+    padding: 10px;
+    border: 1px solid #ddd;
+    text-align: center;
+  }
+  
+  table th {
+    background-color: #f4f4f4;
+  }
+  
+  tr:hover {
+    background-color: #f1f1f1;
+  }
+  
+  img {
+    border-radius: 4px;
+    max-width: 50px;
+    height: auto;
+  }
+  

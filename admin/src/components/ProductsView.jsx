@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { firestore } from '../firebase'; // Đảm bảo đường dẫn này chính xác
 import { collection, getDocs, addDoc, updateDoc, deleteDoc, doc } from 'firebase/firestore';
+import './ProductsView.css';  // Import CSS file
 
 const ProductsView = () => {
   const [products, setProducts] = useState([]);
